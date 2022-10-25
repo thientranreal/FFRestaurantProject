@@ -1,6 +1,6 @@
 public class Guard extends Employee implements ICalculateSalary {
     @Override
-    public int calSalary(int working_days) {
-        return getWage() * working_days;
+    public int calSalary() {
+        return getWage() * getWorkingdays();
     }
 }

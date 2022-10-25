@@ -4,6 +4,7 @@ public class Employee extends Person implements ICalculateSalary {
     private String type;
     private String workingarea;
     private Branch workingbranch;
+    private int workingdays;
 
     public Employee() {
         id = "";
@@ -11,15 +12,17 @@ public class Employee extends Person implements ICalculateSalary {
         type = "";
         workingarea = "";
         workingbranch = new Branch();
+        workingdays = 0;
     }
 
-    public Employee(String name, int birthyear, String gender, String address, String phonenumber, String email, String id, int wage, String type, String workingarea, Branch workingbranch) {
+    public Employee(String name, int birthyear, String gender, String address, String phonenumber, String email, String id, int wage, String type, String workingarea, Branch workingbranch, int workingdays) {
         super(name, birthyear, gender, address, phonenumber, email);
         this.id = id;
         this.wage = wage;
         this.type = type;
         this.workingarea = workingarea;
         this.workingbranch = workingbranch;
+        this.workingdays = workingdays;
     }
 
     public Employee(Branch workingbranch) {
@@ -28,6 +31,7 @@ public class Employee extends Person implements ICalculateSalary {
         type = "";
         workingarea = "";
         this.workingbranch = workingbranch;
+        workingdays = 0;
     }
 
     public String getId() {
@@ -48,6 +52,10 @@ public class Employee extends Person implements ICalculateSalary {
 
     public Branch getWorkingbranch() {
         return workingbranch;
+    }
+
+    public int getWorkingdays() {
+        return workingdays;
     }
 
     public void setId(String id) {
@@ -89,9 +97,17 @@ public class Employee extends Person implements ICalculateSalary {
         this.workingbranch = workingbranch;
     }
 
+    public void setWorkingdays(int workingdays) {
+        while (workingdays < 0 || workingdays > 31) {
+            System.out.print("Số ngày làm việc không hợp lệ. Vui lòng nhập lại: ");
+            workingdays = Integer.parseInt(sc.nextLine());
+        }
+        this.workingdays = workingdays;
+    }
+
     @Override
     public String toString() {
-        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s", id, wage, type, workingarea, super.toString(), workingbranch.getId());
+        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-5d", id, wage, type, workingarea, super.toString(), workingbranch.getId(), workingdays);
     }
 
     @Override
@@ -105,10 +121,12 @@ public class Employee extends Person implements ICalculateSalary {
         setType(sc.nextLine());
         System.out.print("Hãy nhập khu vực làm việc: ");
         setWorkingarea(sc.nextLine());
+        System.out.print("Hãy nhập số ngày làm việc: ");
+        setWorkingdays(Integer.parseInt(sc.nextLine()));
     }
 
     @Override
-    public int calSalary(int working_days) {
+    public int calSalary() {
         return 0;
     }
 }

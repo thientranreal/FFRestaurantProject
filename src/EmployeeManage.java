@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class EmployeeManage {
@@ -40,6 +41,8 @@ public class EmployeeManage {
         }
     }
     public void sortSalary() {
-
+        Arrays.sort(employeeArray, (Employee a, Employee b) -> {
+            return a.calSalary() - b.calSalary();
+        });
     }
 }

@@ -1,7 +1,7 @@
 public class Waiter extends Employee implements ICalculateSalary {
     @Override
-    public int calSalary(int working_days) {
-        int salary = getWage() * working_days;
+    public int calSalary() {
+        int salary = getWage() * getWorkingdays();
         if (getType().compareToIgnoreCase("full-time") == 0) {
             return salary + getWage();
         }
