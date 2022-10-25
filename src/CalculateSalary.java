@@ -1,3 +1,3 @@
 public interface CalculateSalary {
-    public int calSalary();
+    public int calSalary(int working_days);
 }
