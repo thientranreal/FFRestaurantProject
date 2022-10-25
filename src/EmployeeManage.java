@@ -36,6 +36,7 @@ public class EmployeeManage {
         }
     }
     public void show() {
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
         for (Employee em : employeeArray) {
             System.out.println(em.toString());
         }
@@ -44,5 +45,18 @@ public class EmployeeManage {
         Arrays.sort(employeeArray, (Employee a, Employee b) -> {
             return a.calSalary() - b.calSalary();
         });
+    }
+    public Employee findEmployee(String id) {
+        for (Employee em : employeeArray) {
+            if (em.getId().compareToIgnoreCase(id) == 0) { return em; }
+        }
+        return new Employee();
+    }
+    public void findEmployeeByName(String name) {
+        for (Employee em : employeeArray) {
+            if (em.getName().compareToIgnoreCase(name) == 0) {
+                System.out.println(em.toString());
+            }
+        }
     }
 }

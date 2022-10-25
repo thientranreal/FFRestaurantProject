@@ -84,7 +84,7 @@ public class Person {
     }
 
     public void setPhonenumber(String phonenumber) {
-        while (!phonenumber.matches("^0[983]{1}\\d{8}$")) {
+        while (!phonenumber.matches("^0[9837]{1}\\d{8}$")) {
             System.out.print("Số điện thoại không hợp lệ. Vui lòng nhập lại: ");
             phonenumber = sc.nextLine();
         }

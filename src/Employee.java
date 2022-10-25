@@ -107,7 +107,7 @@ public class Employee extends Person implements ICalculateSalary {
 
     @Override
     public String toString() {
-        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-5d", id, wage, type, workingarea, super.toString(), workingbranch.getId(), workingdays);
+        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-11d", id, wage, type, workingarea, super.toString(), workingbranch.getId(), workingdays);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Employee extends Person implements ICalculateSalary {
         super.input();
         System.out.print("Hãy nhập mã nhân viên: ");
         setId(sc.nextLine());
-        System.out.print("Hãy nhập lương theo giờ: ");
+        System.out.print("Hãy nhập lương một ngày: ");
         setWage(Integer.parseInt(sc.nextLine()));
         System.out.print("Hãy nhập loại nhân viên: ");
         setType(sc.nextLine());
