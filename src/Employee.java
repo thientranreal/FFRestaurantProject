@@ -1,4 +1,4 @@
-public class Employee extends Person{
+public class Employee extends Person implements ICalculateSalary {
     private String id;
     private int wage;
     private String type;
@@ -105,5 +105,10 @@ public class Employee extends Person{
         setType(sc.nextLine());
         System.out.print("Hãy nhập khu vực làm việc: ");
         setWorkingarea(sc.nextLine());
+    }
+
+    @Override
+    public int calSalary(int working_days) {
+        return 0;
     }
 }

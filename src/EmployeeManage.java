@@ -39,5 +39,7 @@ public class EmployeeManage {
             System.out.println(em.toString());
         }
     }
+    public void sortSalary() {
 
+    }
 }
