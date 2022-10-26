@@ -75,6 +75,7 @@ public class Employee extends Person implements ICalculateSalary {
     }
 
     public void setType(String type) {
+        System.out.println("Loại NV: full-time và part-time");
         while (type.compareToIgnoreCase("full-time") != 0 && type.compareToIgnoreCase("part-time") != 0) {
             System.out.print("Loại nhân viên không hợp lệ. Vui lòng nhập lại: ");
             type = sc.nextLine();
@@ -83,6 +84,7 @@ public class Employee extends Person implements ICalculateSalary {
     }
 
     public void setWorkingarea(String workingarea) {
+        System.out.println("Khu vực làm việc: kitchen, counter, toilet, parking lot");
         while (workingarea.compareToIgnoreCase("kitchen") != 0
                 && workingarea.compareToIgnoreCase("counter") != 0
                 && workingarea.compareToIgnoreCase("toilet") != 0
