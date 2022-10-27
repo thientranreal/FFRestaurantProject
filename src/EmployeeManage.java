@@ -9,8 +9,10 @@ public class EmployeeManage {
     }
 
     public EmployeeManage(int amount) {
-        this.amount = amount;
-        employeeArray = new Employee[amount];
+        if (amount > 0) {
+            this.amount = amount;
+            employeeArray = new Employee[amount];
+        }
     }
 
     public EmployeeManage(int amount, Employee[] employeeArray) {
@@ -61,7 +63,8 @@ public class EmployeeManage {
     }
     public void remove(String id) {
         int j = 0;
-        Employee[] copy = new Employee[employeeArray.length - 1];
+        amount = amount - 1;
+        Employee[] copy = new Employee[amount];
         // kiểm tra những phần tử trong array nếu là pt không muốn xóa thì sẽ copy vào mảng copy
         for (int i = 0; i < employeeArray.length; i++) {
             if (employeeArray[i].getId().compareToIgnoreCase(id) != 0) {
@@ -80,12 +83,11 @@ public class EmployeeManage {
     public void edit(String id) {
         // lấy vị trí pt muốn sửa trong mảng gán vị trí vào i
         int i, chon;
-        for (i = 0; i < employeeArray.length; i++) {
+        for (i = 0; i < amount; i++) {
             if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
             }
         }
-        Employee em = employeeArray[i];
         while (true) {
             System.out.printf("1. Sửa mã NV.\n");
             System.out.printf("2. Sửa họ tên.\n");
@@ -104,47 +106,47 @@ public class EmployeeManage {
             switch (chon) {
                 case 1:
                     System.out.print("Hãy nhập mã nhân viên: ");
-                    em.setId(sc.nextLine());
+                    employeeArray[i].setId(sc.nextLine());
                     break;
                 case 2:
                     System.out.print("Hãy nhập họ và tên: ");
-                    em.setName(sc.nextLine());
+                    employeeArray[i].setName(sc.nextLine());
                     break;
                 case 3:
                     System.out.print("Hãy nhập năm sinh: ");
-                    em.setBirthyear(Integer.parseInt(sc.nextLine()));
+                    employeeArray[i].setBirthyear(Integer.parseInt(sc.nextLine()));
                     break;
                 case 4:
                     System.out.print("Hãy nhập giới tính: ");
-                    em.setGender(sc.nextLine());
+                    employeeArray[i].setGender(sc.nextLine());
                     break;
                 case 5:
                     System.out.print("Hãy nhập địa chỉ: ");
-                    em.setAddress(sc.nextLine());
+                    employeeArray[i].setAddress(sc.nextLine());
                     break;
                 case 6:
                     System.out.print("Hãy nhập số điện thoại: ");
-                    em.setPhonenumber(sc.nextLine());
+                    employeeArray[i].setPhonenumber(sc.nextLine());
                     break;
                 case 7:
                     System.out.print("Hãy nhập email: ");
-                    em.setEmail(sc.nextLine());
+                    employeeArray[i].setEmail(sc.nextLine());
                     break;
                 case 8:
                     System.out.print("Hãy nhập lương một ngày: ");
-                    em.setWage(Integer.parseInt(sc.nextLine()));
+                    employeeArray[i].setWage(Integer.parseInt(sc.nextLine()));
                     break;
                 case 9:
                     System.out.print("Hãy nhập loại nhân viên: ");
-                    em.setType(sc.nextLine());
+                    employeeArray[i].setType(sc.nextLine());
                     break;
                 case 10:
                     System.out.print("Hãy nhập khu vực làm việc: ");
-                    em.setWorkingarea(sc.nextLine());
+                    employeeArray[i].setWorkingarea(sc.nextLine());
                     break;
                 case 11:
                     System.out.print("Hãy nhập số ngày làm việc: ");
-                    em.setWorkingdays(Integer.parseInt(sc.nextLine()));
+                    employeeArray[i].setWorkingdays(Integer.parseInt(sc.nextLine()));
                     break;
             }
         }
