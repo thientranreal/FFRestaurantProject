@@ -62,6 +62,11 @@ public class EmployeeManage {
         }
     }
     public void remove(String id) {
+        // kiem tra pt muon xoa co ton tai trong mang thay khong
+        for (int i = 0; i < amount; i++) {
+            if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
+            if (i == amount - 1) { return; } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+        }
         int j = 0;
         amount = amount - 1;
         Employee[] copy = new Employee[amount];
@@ -87,6 +92,7 @@ public class EmployeeManage {
             if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
             }
+            if (i == amount - 1) { return; }
         }
         while (true) {
             System.out.printf("1. Sửa mã NV.\n");
