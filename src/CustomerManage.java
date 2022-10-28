@@ -20,6 +20,15 @@ public class CustomerManage {
         this.amount = amount;
         this.customerArray = customerArray;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public Customer[] getCustomerArray() {
+        return customerArray;
+    }
+
     public void input() {
         for (int i=0; i < amount; i++) {
             customerArray[i] = new Customer();
@@ -49,7 +58,10 @@ public class CustomerManage {
         // kiem tra pt muon xoa co ton tai trong mang thay khong
         for (int i = 0; i < amount; i++) {
             if (customerArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
-            if (i == amount - 1) { return; } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+            if (i == amount - 1) {
+                System.out.println("Khách hàng không tồn tại.");
+                return;
+            } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
         }
         int j = 0;
         amount = amount - 1;
@@ -76,7 +88,10 @@ public class CustomerManage {
             if (customerArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
             }
-            if (i == amount - 1) { return; }
+            if (i == amount - 1) {
+                System.out.println("Khách hàng không tồn tại.");
+                return;
+            }
         }
         while (true) {
             System.out.printf("1. Sửa mã KH.\n");

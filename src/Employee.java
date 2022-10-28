@@ -3,7 +3,7 @@ public class Employee extends Person implements ICalculateSalary {
     private int wage;
     private String type;
     private String workingarea;
-    private Branch workingbranch;
+    private String branchID;
     private int workingdays;
 
     public Employee() {
@@ -11,27 +11,18 @@ public class Employee extends Person implements ICalculateSalary {
         wage = 0;
         type = "";
         workingarea = "";
-        workingbranch = new Branch();
+        branchID = "";
         workingdays = 0;
     }
 
-    public Employee(String name, int birthyear, String gender, String address, String phonenumber, String email, String id, int wage, String type, String workingarea, Branch workingbranch, int workingdays) {
+    public Employee(String name, int birthyear, String gender, String address, String phonenumber, String email, String id, int wage, String type, String workingarea, String branchID, int workingdays) {
         super(name, birthyear, gender, address, phonenumber, email);
         this.id = id;
         this.wage = wage;
         this.type = type;
         this.workingarea = workingarea;
-        this.workingbranch = workingbranch;
+        this.branchID = branchID;
         this.workingdays = workingdays;
-    }
-
-    public Employee(Branch workingbranch) {
-        id = "";
-        wage = 0;
-        type = "";
-        workingarea = "";
-        this.workingbranch = workingbranch;
-        workingdays = 0;
     }
 
     public String getId() {
@@ -50,8 +41,8 @@ public class Employee extends Person implements ICalculateSalary {
         return workingarea;
     }
 
-    public Branch getWorkingbranch() {
-        return workingbranch;
+    public String getBranchID() {
+        return branchID;
     }
 
     public int getWorkingdays() {
@@ -95,8 +86,12 @@ public class Employee extends Person implements ICalculateSalary {
         this.workingarea = workingarea;
     }
 
-    public void setWorkingbranch(Branch workingbranch) {
-        this.workingbranch = workingbranch;
+    public void setBranchID(String branchID) {
+        while (branchID.isBlank()) {
+            System.out.print("Mã chi nhánh không hợp lệ. Vui lòng nhập lại: ");
+            branchID = sc.nextLine();
+        }
+        this.branchID = branchID;
     }
 
     public void setWorkingdays(int workingdays) {
@@ -109,7 +104,7 @@ public class Employee extends Person implements ICalculateSalary {
 
     @Override
     public String toString() {
-        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-11d", id, wage, type, workingarea, super.toString(), workingbranch.getId(), workingdays);
+        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-11d", id, wage, type, workingarea, super.toString(), branchID, workingdays);
     }
 
     @Override
@@ -125,6 +120,8 @@ public class Employee extends Person implements ICalculateSalary {
         setWorkingarea(sc.nextLine());
         System.out.print("Hãy nhập số ngày làm việc: ");
         setWorkingdays(Integer.parseInt(sc.nextLine()));
+        System.out.print("Hãy nhập mã chi nhánh làm việc: ");
+        setBranchID(sc.nextLine());
     }
 
     @Override

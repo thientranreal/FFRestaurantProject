@@ -20,6 +20,15 @@ public class BranchManage {
         this.amount = amount;
         this.branchArray = branchArray;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public Branch[] getBranchArray() {
+        return branchArray;
+    }
+
     public void input() {
         for (int i=0; i < amount; i++) {
             branchArray[i] = new Branch();
@@ -49,7 +58,10 @@ public class BranchManage {
         // kiem tra pt muon xoa co ton tai trong mang thay khong
         for (int i = 0; i < amount; i++) {
             if (branchArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
-            if (i == amount - 1) { return; } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+            if (i == amount - 1) {
+                System.out.println("Chi nhánh không tồn tại.");
+                return;
+            } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
         }
         int j = 0;
         amount = amount - 1;
@@ -76,7 +88,10 @@ public class BranchManage {
             if (branchArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
             }
-            if (i == amount - 1) { return; }
+            if (i == amount - 1) {
+                System.out.println("Chi nhánh không tồn tại.");
+                return;
+            }
         }
         while (true) {
             System.out.printf("1. Sửa mã chi nhánh.\n");

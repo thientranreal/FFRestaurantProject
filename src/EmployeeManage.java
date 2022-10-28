@@ -19,6 +19,15 @@ public class EmployeeManage {
         this.amount = amount;
         this.employeeArray = employeeArray;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public Employee[] getEmployeeArray() {
+        return employeeArray;
+    }
+
     public void input() {
         for (int i=0; i < amount; i++) {
             System.out.print("Bạn muốn thêm nhân viên gì (waiter, guard, cleaning staff): ");
@@ -65,7 +74,10 @@ public class EmployeeManage {
         // kiem tra pt muon xoa co ton tai trong mang thay khong
         for (int i = 0; i < amount; i++) {
             if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
-            if (i == amount - 1) { return; } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+            if (i == amount - 1) {
+                System.out.println("Nhân viên không tồn tại.");
+                return;
+            } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
         }
         int j = 0;
         amount = amount - 1;
@@ -92,7 +104,10 @@ public class EmployeeManage {
             if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
             }
-            if (i == amount - 1) { return; }
+            if (i == amount - 1) {
+                System.out.println("Nhân viên không tồn tại.");
+                return;
+            }
         }
         while (true) {
             System.out.printf("1. Sửa mã NV.\n");
@@ -106,9 +121,10 @@ public class EmployeeManage {
             System.out.printf("9. Sửa loại NV.\n");
             System.out.printf("10. Sửa khu vực làm việc.\n");
             System.out.printf("11. Sửa số ngày làm việc.\n");
+            System.out.printf("12. Sửa mã chi nhánh làm việc.\n");
             System.out.printf("Hãy chọn thông tin muốn sửa.\n");
             chon = Integer.parseInt(sc.nextLine());
-            if (chon <= 0 || chon > 11) { break; }
+            if (chon <= 0 || chon > 12) { break; }
             switch (chon) {
                 case 1:
                     System.out.print("Hãy nhập mã nhân viên: ");
@@ -153,6 +169,10 @@ public class EmployeeManage {
                 case 11:
                     System.out.print("Hãy nhập số ngày làm việc: ");
                     employeeArray[i].setWorkingdays(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 12:
+                    System.out.print("Hãy nhập mã chi nhánh làm việc: ");
+                    employeeArray[i].setBranchID(sc.nextLine());
                     break;
             }
         }
