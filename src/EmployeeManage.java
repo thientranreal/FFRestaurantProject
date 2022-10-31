@@ -47,10 +47,33 @@ public class EmployeeManage {
         }
     }
     public void show() {
+        // xuất ra danh sách Waiter
+        System.out.println("Waiter Employees:");
         System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
         for (Employee em : employeeArray) {
-            System.out.println(em.toString());
+            if (em.getClass().equals(Waiter.class)) {
+                System.out.println(em.toString());
+            }
         }
+        System.out.println("=======================================================================");
+        // xuất ra danh sách Guard
+        System.out.println("Guard Employees:");
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
+        for (Employee em : employeeArray) {
+            if (em.getClass().equals(Guard.class)) {
+                System.out.println(em.toString());
+            }
+        }
+        System.out.println("=======================================================================");
+        // xuất ra danh sách Cleaning Staff
+        System.out.println("Cleaning Staffs:");
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
+        for (Employee em : employeeArray) {
+            if (em.getClass().equals(CleaningStaff.class)) {
+                System.out.println(em.toString());
+            }
+        }
+        System.out.println("=======================================================================");
     }
     public void sortSalary() {
         Arrays.sort(employeeArray, (Employee a, Employee b) -> {
