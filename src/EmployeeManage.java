@@ -32,18 +32,20 @@ public class EmployeeManage {
         for (int i=0; i < amount; i++) {
             System.out.print("Bạn muốn thêm nhân viên gì (waiter, guard, cleaning staff): ");
             String typeEm = sc.nextLine();
-            if (typeEm.compareToIgnoreCase("waiter") == 0) {
+            while (!typeEm.equalsIgnoreCase("waiter") && !typeEm.equalsIgnoreCase("guard") && !typeEm.equalsIgnoreCase("cleaning staff")) {
+                System.out.print("Vui lòng nhập lại: ");
+                typeEm = sc.nextLine();
+            }
+            if (typeEm.equalsIgnoreCase("waiter")) {
                 employeeArray[i] = new Waiter();
-                employeeArray[i].input();
             }
-            else if (typeEm.compareToIgnoreCase("guard") == 0) {
+            else if (typeEm.equalsIgnoreCase("guard")) {
                 employeeArray[i] = new Guard();
-                employeeArray[i].input();
             }
-            else if (typeEm.compareToIgnoreCase("cleaning staff") == 0) {
+            else if (typeEm.equalsIgnoreCase("cleaning staff")) {
                 employeeArray[i] = new CleaningStaff();
-                employeeArray[i].input();
             }
+            employeeArray[i].input();
         }
     }
     public void show() {
