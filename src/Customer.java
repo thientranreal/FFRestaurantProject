@@ -30,7 +30,6 @@ public class Customer extends Person{
     }
 
     public void setCustomer_type(String customer_type) {
-        System.out.println("Loại KH: normal, bronze, gold, diamond");
         while (customer_type.compareToIgnoreCase("normal") != 0
                 && customer_type.compareToIgnoreCase("bronze") != 0
                 && customer_type.compareToIgnoreCase("gold") != 0
@@ -51,7 +50,7 @@ public class Customer extends Person{
         super.input();
         System.out.print("Hãy nhập mã khách hàng: ");
         setId(sc.nextLine());
-        System.out.print("Hãy nhập loại khách hàng: ");
+        System.out.print("Hãy nhập loại khách hàng (normal, bronze, gold, diamond): ");
         setCustomer_type(sc.nextLine());
     }
 }

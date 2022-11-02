@@ -1,4 +1,4 @@
-public class Waiter extends Employee implements ICalculateSalary {
+public class Waiter extends Employee {
     @Override
     public int calSalary() {
         int salary = getWage() * getWorkingdays();

@@ -1,4 +1,4 @@
-public class Employee extends Person implements ICalculateSalary {
+public class Employee extends Person {
     private String id;
     private int wage;
     private String type;
@@ -66,7 +66,6 @@ public class Employee extends Person implements ICalculateSalary {
     }
 
     public void setType(String type) {
-        System.out.println("Loại NV: full-time và part-time");
         while (type.compareToIgnoreCase("full-time") != 0 && type.compareToIgnoreCase("part-time") != 0) {
             System.out.print("Loại nhân viên không hợp lệ. Vui lòng nhập lại: ");
             type = sc.nextLine();
@@ -75,7 +74,6 @@ public class Employee extends Person implements ICalculateSalary {
     }
 
     public void setWorkingarea(String workingarea) {
-        System.out.println("Khu vực làm việc: kitchen, counter, toilet, parking lot");
         while (workingarea.compareToIgnoreCase("kitchen") != 0
                 && workingarea.compareToIgnoreCase("counter") != 0
                 && workingarea.compareToIgnoreCase("toilet") != 0
@@ -104,7 +102,7 @@ public class Employee extends Person implements ICalculateSalary {
 
     @Override
     public String toString() {
-        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-11d", id, wage, type, workingarea, super.toString(), branchID, workingdays);
+        return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-11d|%-15d", id, wage, type, workingarea, super.toString(), branchID, workingdays, calSalary());
     }
 
     @Override
@@ -114,9 +112,9 @@ public class Employee extends Person implements ICalculateSalary {
         setId(sc.nextLine());
         System.out.print("Hãy nhập lương một ngày: ");
         setWage(Integer.parseInt(sc.nextLine()));
-        System.out.print("Hãy nhập loại nhân viên: ");
+        System.out.print("Hãy nhập loại nhân viên (full-time, part-time): ");
         setType(sc.nextLine());
-        System.out.print("Hãy nhập khu vực làm việc: ");
+        System.out.print("Hãy nhập khu vực làm việc (kitchen, counter, toilet, parking lot): ");
         setWorkingarea(sc.nextLine());
         System.out.print("Hãy nhập số ngày làm việc: ");
         setWorkingdays(Integer.parseInt(sc.nextLine()));
@@ -124,7 +122,6 @@ public class Employee extends Person implements ICalculateSalary {
         setBranchID(sc.nextLine());
     }
 
-    @Override
     public int calSalary() {
         return 0;
     }

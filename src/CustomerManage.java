@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -35,6 +36,35 @@ public class CustomerManage {
             customerArray[i].input();
         }
     }
+    public void inputFile(String file) throws IOException {
+        String[] data;
+        File file_url = new File(file);
+        String line = "";
+        int i = 0;
+
+        InputStream inputStream = new FileInputStream(file_url);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+
+        // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+        amount = Integer.parseInt(reader.readLine());
+        customerArray = new Customer[amount];
+
+        // Đọc dữ liệu từ FILE
+        while((line = reader.readLine()) != null){
+            data = line.split("[|]");
+            customerArray[i] = new Customer();
+            customerArray[i].setId(data[0]);
+            customerArray[i].setCustomer_type(data[1]);
+            customerArray[i].setName(data[2]);
+            customerArray[i].setBirthyear(Integer.parseInt(data[3]));
+            customerArray[i].setGender(data[4]);
+            customerArray[i].setAddress(data[5]);
+            customerArray[i].setPhonenumber(data[6]);
+            customerArray[i].setEmail(data[7]);
+            ++i;
+        }
+    }
     public void show() {
         System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
         for (Customer cus : customerArray) {
@@ -45,9 +75,10 @@ public class CustomerManage {
         for (Customer cus : customerArray) {
             if (cus.getId().compareToIgnoreCase(id) == 0) { return cus; }
         }
-        return new Customer();
+        return null;
     }
     public void findCustomerByName(String name) {
+        System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
         for (Customer cus : customerArray) {
             if (cus.getName().compareToIgnoreCase(name) == 0) {
                 System.out.println(cus.toString());

@@ -1,0 +1,6 @@
+5
+KH001|Normal|Luong Thi Anh|1973|female|13/7 Ly Chi Thang, P.3, Q.3|0374685570|anh@gmail.com
+KH002|Bronze|Luong Thi Nghia|1985|female|4 Nguyen Du, P.3, Q.1|0975690475|nghial@gmail.com
+KH003|Gold|Nguyen Thanh Binh|1979|male|26/15D Duong 3/2, P.3, Q.5|0972505240|binhng@gmail.com
+KH004|Diamond|Ho Thu Ngan|2000|female|20/7 Cong Hoa, P.2, Q.Tan Binh|0372013527|nganthu@gmail.com
+KH005|Normal|Tran Van Kiet|1969|male|3 Ly Thuong Kiet, P.2, Q.Tan Binh|0324355850|kiettran@gmail.com

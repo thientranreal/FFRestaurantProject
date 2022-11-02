@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -42,16 +43,57 @@ public class EmployeeManage {
             else if (typeEm.equalsIgnoreCase("guard")) {
                 employeeArray[i] = new Guard();
             }
-            else if (typeEm.equalsIgnoreCase("cleaning staff")) {
+            else {
                 employeeArray[i] = new CleaningStaff();
             }
             employeeArray[i].input();
         }
     }
+    public void inputFile(String file) throws IOException {
+        String[] data;
+        File file_url = new File(file);
+        String line = "";
+        int i = 0;
+
+        InputStream inputStream = new FileInputStream(file_url);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+
+        // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+        amount = Integer.parseInt(reader.readLine());
+        employeeArray = new Employee[amount];
+
+        // Đọc dữ liệu từ FILE
+        while((line = reader.readLine()) != null){
+            data = line.split("[|]");
+            if (data[0].equalsIgnoreCase("waiter")) {
+                employeeArray[i] = new Waiter();
+            }
+            else if (data[0].equalsIgnoreCase("cleaning staff")) {
+                employeeArray[i] = new CleaningStaff();
+            }
+            else {
+                employeeArray[i] = new Guard();
+            }
+            employeeArray[i].setName(data[1]);
+            employeeArray[i].setBirthyear(Integer.parseInt(data[2]));
+            employeeArray[i].setGender(data[3]);
+            employeeArray[i].setAddress(data[4]);
+            employeeArray[i].setPhonenumber(data[5]);
+            employeeArray[i].setEmail(data[6]);
+            employeeArray[i].setId(data[7]);
+            employeeArray[i].setWage(Integer.parseInt(data[8]));
+            employeeArray[i].setType(data[9]);
+            employeeArray[i].setWorkingarea(data[10]);
+            employeeArray[i].setBranchID(data[11]);
+            employeeArray[i].setWorkingdays(Integer.parseInt(data[12]));
+            ++i;
+        }
+    }
     public void show() {
         // xuất ra danh sách Waiter
         System.out.println("Waiter Employees:");
-        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
         for (Employee em : employeeArray) {
             if (em.getClass().equals(Waiter.class)) {
                 System.out.println(em.toString());
@@ -60,7 +102,7 @@ public class EmployeeManage {
         System.out.println("=======================================================================");
         // xuất ra danh sách Guard
         System.out.println("Guard Employees:");
-        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
         for (Employee em : employeeArray) {
             if (em.getClass().equals(Guard.class)) {
                 System.out.println(em.toString());
@@ -69,7 +111,7 @@ public class EmployeeManage {
         System.out.println("=======================================================================");
         // xuất ra danh sách Cleaning Staff
         System.out.println("Cleaning Staffs:");
-        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV");
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
         for (Employee em : employeeArray) {
             if (em.getClass().equals(CleaningStaff.class)) {
                 System.out.println(em.toString());
@@ -86,9 +128,10 @@ public class EmployeeManage {
         for (Employee em : employeeArray) {
             if (em.getId().compareToIgnoreCase(id) == 0) { return em; }
         }
-        return new Employee();
+        return null;
     }
     public void findEmployeeByName(String name) {
+        System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
         for (Employee em : employeeArray) {
             if (em.getName().compareToIgnoreCase(name) == 0) {
                 System.out.println(em.toString());
