@@ -91,6 +91,22 @@ public class Employee extends Person {
         }
         this.branchID = branchID;
     }
+    public void setBranchIDStrict(String branchID, Branch[] brs) {
+        if (brs == null) {
+            System.out.println("Chưa tạo danh sách chi nhánh.");
+            return;
+        }
+        while (true) {
+            for (Branch br : brs) {
+                if (br.getId().equalsIgnoreCase(branchID)) {
+                    setBranchID(branchID);
+                    return;
+                }
+            }
+            System.out.println("Mã chi nhánh không tồn tại. Vui lòng nhập lại: ");
+            branchID = sc.nextLine();
+        }
+    }
 
     public void setWorkingdays(int workingdays) {
         while (workingdays < 0 || workingdays > 31) {
@@ -105,8 +121,7 @@ public class Employee extends Person {
         return String.format("%-10s|%-10d|%-10s|%-13s|%s|%-10s|%-11d|%-15d", id, wage, type, workingarea, super.toString(), branchID, workingdays, calSalary());
     }
 
-    @Override
-    public void input() {
+    public void input(Branch[] brs) {
         super.input();
         System.out.print("Hãy nhập mã nhân viên: ");
         setId(sc.nextLine());
@@ -119,7 +134,7 @@ public class Employee extends Person {
         System.out.print("Hãy nhập số ngày làm việc: ");
         setWorkingdays(Integer.parseInt(sc.nextLine()));
         System.out.print("Hãy nhập mã chi nhánh làm việc: ");
-        setBranchID(sc.nextLine());
+        setBranchIDStrict(sc.nextLine(), brs);
     }
 
     public int calSalary() {

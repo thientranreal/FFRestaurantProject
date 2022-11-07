@@ -29,7 +29,7 @@ public class EmployeeManage {
         return employeeArray;
     }
 
-    public void input() {
+    public void input(Branch[] brs) {
         for (int i=0; i < amount; i++) {
             System.out.print("Bạn muốn thêm nhân viên gì (waiter, guard, cleaning staff): ");
             String typeEm = sc.nextLine();
@@ -46,7 +46,7 @@ public class EmployeeManage {
             else {
                 employeeArray[i] = new CleaningStaff();
             }
-            employeeArray[i].input();
+            employeeArray[i].input(brs);
         }
     }
     public void inputFile(String file) throws IOException {
@@ -159,13 +159,20 @@ public class EmployeeManage {
         employeeArray = copy;
     }
     public void add(Employee em) {
+        // nếu chưa có danh sách thì sẽ tạo ra danh sách mới
+        if (employeeArray == null) {
+            amount = 1;
+            employeeArray = new Employee[amount];
+            employeeArray[0] = em;
+            return;
+        }
         // tăng số lượng lên 1 và copy các pt trong mảng sang mảng mới
         amount = amount + 1;
         employeeArray = Arrays.copyOf(employeeArray, amount);
         // pt cuối cùng là employee muốn thêm vào mảng
         employeeArray[amount - 1] = em;
     }
-    public void edit(String id) {
+    public void edit(String id, Branch[] brs) {
         // lấy vị trí pt muốn sửa trong mảng gán vị trí vào i
         int i, chon;
         for (i = 0; i < amount; i++) {
@@ -240,7 +247,7 @@ public class EmployeeManage {
                     break;
                 case 12:
                     System.out.print("Hãy nhập mã chi nhánh làm việc: ");
-                    employeeArray[i].setBranchID(sc.nextLine());
+                    employeeArray[i].setBranchIDStrict(sc.nextLine(), brs);
                     break;
             }
         }
