@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -35,7 +36,36 @@ public class BranchManage {
             branchArray[i].input();
         }
     }
+    public void inputFile(String file) throws IOException {
+        String[] data;
+        File file_url = new File(file);
+        String line = "";
+        int i = 0;
+
+        InputStream inputStream = new FileInputStream(file_url);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+
+        // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+        amount = Integer.parseInt(reader.readLine());
+        branchArray = new Branch[amount];
+
+        // Đọc dữ liệu từ FILE
+        while((line = reader.readLine()) != null){
+            data = line.split("[|]");
+            branchArray[i] = new Branch();
+            branchArray[i].setId(data[0]);
+            branchArray[i].setName(data[1]);
+            branchArray[i].setAddress(data[2]);
+            branchArray[i].setOpenningdate(data[3]);
+            ++i;
+        }
+    }
     public void show() {
+        if (branchArray == null) {
+            System.out.println("Chưa tạo danh sách chi nhánh.");
+            return;
+        }
         System.out.printf("%-10s|%-20s|%-50s|%-12s\n", "MaCN", "TenCN", "Dia Chi", "Ngay Mo Cua");
         for (Branch br : branchArray) {
             System.out.println(br.toString());
@@ -45,9 +75,14 @@ public class BranchManage {
         for (Branch br : branchArray) {
             if (br.getId().compareToIgnoreCase(id) == 0) { return br; }
         }
-        return new Branch();
+        return null;
     }
     public void findBranchByName(String name) {
+        if (branchArray == null) {
+            System.out.println("Chưa tạo danh sách chi nhánh.");
+            return;
+        }
+        System.out.printf("%-10s|%-20s|%-50s|%-12s\n", "MaCN", "TenCN", "Dia Chi", "Ngay Mo Cua");
         for (Branch br : branchArray) {
             if (br.getName().compareToIgnoreCase(name) == 0) {
                 System.out.println(br.toString());
@@ -55,13 +90,14 @@ public class BranchManage {
         }
     }
     public void remove(String id) {
+        if (branchArray == null) {
+            System.out.println("Chưa tạo danh sách chi nhánh.");
+            return;
+        }
         // kiem tra pt muon xoa co ton tai trong mang thay khong
-        for (int i = 0; i < amount; i++) {
-            if (branchArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
-            if (i == amount - 1) {
-                System.out.println("Chi nhánh không tồn tại.");
-                return;
-            } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+        if (findBranch(id) == null) {
+            System.out.println("Chi nhánh không tồn tại.");
+            return;
         }
         int j = 0;
         amount = amount - 1;
@@ -75,6 +111,13 @@ public class BranchManage {
         branchArray = copy;
     }
     public void add(Branch br) {
+        // nếu chưa có danh sách thì sẽ tạo ra danh sách mới
+        if (branchArray == null) {
+            amount = 1;
+            branchArray = new Branch[amount];
+            branchArray[0] = br;
+            return;
+        }
         // tăng số lượng lên 1 và copy các pt trong mảng sang mảng mới
         amount = amount + 1;
         branchArray = Arrays.copyOf(branchArray, amount);
@@ -82,15 +125,19 @@ public class BranchManage {
         branchArray[amount - 1] = br;
     }
     public void edit(String id) {
+        if (branchArray == null) {
+            System.out.println("Chưa tạo danh sách chi nhánh.");
+            return;
+        }
+        if (findBranch(id) == null) {
+            System.out.println("Chi nhánh không tồn tại.");
+            return;
+        }
         // lấy vị trí pt muốn sửa trong mảng gán vị trí vào i
         int i, chon;
         for (i = 0; i < amount; i++) {
             if (branchArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
-            }
-            if (i == amount - 1) {
-                System.out.println("Chi nhánh không tồn tại.");
-                return;
             }
         }
         while (true) {

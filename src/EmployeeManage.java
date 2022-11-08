@@ -91,6 +91,10 @@ public class EmployeeManage {
         }
     }
     public void show() {
+        if (employeeArray == null) {
+            System.out.println("Chưa tạo danh sách nhân viên.");
+            return;
+        }
         // xuất ra danh sách Waiter
         System.out.println("Waiter Employees:");
         System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
@@ -131,6 +135,10 @@ public class EmployeeManage {
         return null;
     }
     public void findEmployeeByName(String name) {
+        if (employeeArray == null) {
+            System.out.println("Chưa tạo danh sách nhân viên.");
+            return;
+        }
         System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
         for (Employee em : employeeArray) {
             if (em.getName().compareToIgnoreCase(name) == 0) {
@@ -139,13 +147,14 @@ public class EmployeeManage {
         }
     }
     public void remove(String id) {
+        if (employeeArray == null) {
+            System.out.println("Chưa tạo danh sách nhân viên.");
+            return;
+        }
         // kiem tra pt muon xoa co ton tai trong mang thay khong
-        for (int i = 0; i < amount; i++) {
-            if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
-            if (i == amount - 1) {
-                System.out.println("Nhân viên không tồn tại.");
-                return;
-            } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+        if (findEmployee(id) == null) {
+            System.out.println("Nhân viên không tồn tại.");
+            return;
         }
         int j = 0;
         amount = amount - 1;
@@ -173,15 +182,19 @@ public class EmployeeManage {
         employeeArray[amount - 1] = em;
     }
     public void edit(String id, Branch[] brs) {
+        if (employeeArray == null) {
+            System.out.println("Chưa tạo danh sách nhân viên.");
+            return;
+        }
+        if (findEmployee(id) == null) {
+            System.out.println("Nhân viên không tồn tại.");
+            return;
+        }
         // lấy vị trí pt muốn sửa trong mảng gán vị trí vào i
         int i, chon;
         for (i = 0; i < amount; i++) {
             if (employeeArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
-            }
-            if (i == amount - 1) {
-                System.out.println("Nhân viên không tồn tại.");
-                return;
             }
         }
         while (true) {
@@ -234,11 +247,11 @@ public class EmployeeManage {
                     employeeArray[i].setWage(Integer.parseInt(sc.nextLine()));
                     break;
                 case 9:
-                    System.out.print("Hãy nhập loại nhân viên: ");
+                    System.out.print("Hãy nhập loại nhân viên (full-time, part-time): ");
                     employeeArray[i].setType(sc.nextLine());
                     break;
                 case 10:
-                    System.out.print("Hãy nhập khu vực làm việc: ");
+                    System.out.print("Hãy nhập khu vực làm việc (kitchen, counter, toilet, parking lot): ");
                     employeeArray[i].setWorkingarea(sc.nextLine());
                     break;
                 case 11:

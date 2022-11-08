@@ -66,6 +66,10 @@ public class CustomerManage {
         }
     }
     public void show() {
+        if (customerArray == null) {
+            System.out.println("Chưa tạo danh sách khách hàng.");
+            return;
+        }
         System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
         for (Customer cus : customerArray) {
             System.out.println(cus.toString());
@@ -78,6 +82,10 @@ public class CustomerManage {
         return null;
     }
     public void findCustomerByName(String name) {
+        if (customerArray == null) {
+            System.out.println("Chưa tạo danh sách khách hàng.");
+            return;
+        }
         System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
         for (Customer cus : customerArray) {
             if (cus.getName().compareToIgnoreCase(name) == 0) {
@@ -86,13 +94,14 @@ public class CustomerManage {
         }
     }
     public void remove(String id) {
+        if (customerArray == null) {
+            System.out.println("Chưa tạo danh sách khách hàng.");
+            return;
+        }
         // kiem tra pt muon xoa co ton tai trong mang thay khong
-        for (int i = 0; i < amount; i++) {
-            if (customerArray[i].getId().compareToIgnoreCase(id) == 0) { break; }
-            if (i == amount - 1) {
-                System.out.println("Khách hàng không tồn tại.");
-                return;
-            } // neu toi pt cuoi cung ma chua thoat khoi vong lap thi return khong remove
+        if (findCustomer(id) == null) {
+            System.out.println("Khách hàng không tồn tại.");
+            return;
         }
         int j = 0;
         amount = amount - 1;
@@ -106,6 +115,13 @@ public class CustomerManage {
         customerArray = copy;
     }
     public void add(Customer cus) {
+        // nếu chưa có danh sách thì sẽ tạo ra danh sách mới
+        if (customerArray == null) {
+            amount = 1;
+            customerArray = new Customer[amount];
+            customerArray[0] = cus;
+            return;
+        }
         // tăng số lượng lên 1 và copy các pt trong mảng sang mảng mới
         amount = amount + 1;
         customerArray = Arrays.copyOf(customerArray, amount);
@@ -113,15 +129,20 @@ public class CustomerManage {
         customerArray[amount - 1] = cus;
     }
     public void edit(String id) {
+        if (customerArray == null) {
+            System.out.println("Chưa tạo danh sách khách hàng.");
+            return;
+        }
+        // kiem tra pt muon xoa co ton tai trong mang thay khong
+        if (findCustomer(id) == null) {
+            System.out.println("Khách hàng không tồn tại.");
+            return;
+        }
         // lấy vị trí pt muốn sửa trong mảng gán vị trí vào i
         int i, chon;
         for (i = 0; i < amount; i++) {
             if (customerArray[i].getId().compareToIgnoreCase(id) == 0) {
                 break;
-            }
-            if (i == amount - 1) {
-                System.out.println("Khách hàng không tồn tại.");
-                return;
             }
         }
         while (true) {
@@ -166,7 +187,7 @@ public class CustomerManage {
                     customerArray[i].setEmail(sc.nextLine());
                     break;
                 case 8:
-                    System.out.print("Hãy nhập loại khách hàng: ");
+                    System.out.print("Hãy nhập loại khách hàng (normal, bronze, gold, diamond): ");
                     customerArray[i].setCustomer_type(sc.nextLine());
                     break;
             }

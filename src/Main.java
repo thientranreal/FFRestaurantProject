@@ -9,6 +9,7 @@ public class Main {
     private static void Menu() {
         final String pathEm = "/Users/Admin/Documents/GitHub/FFRestaurantProject/src/data/inputE.txt";
         final String pathCus = "/Users/Admin/Documents/GitHub/FFRestaurantProject/src/data/inputC.txt";
+        final String pathBr = "/Users/Admin/Documents/GitHub/FFRestaurantProject/src/data/inputB.txt";
         EmployeeManage emmanage = new EmployeeManage();
         BranchManage brmanage = new BranchManage();
         CustomerManage cusmanage = new CustomerManage();
@@ -27,12 +28,13 @@ public class Main {
                     do {
                         System.out.println("=============================================");
                         System.out.println("1. Tạo mới danh sách chi nhánh.");
-                        System.out.println("2. Xuất danh sách chi nhánh.");
-                        System.out.println("3. Tìm chi nhánh bằng id.");
-                        System.out.println("4. Tìm chi nhánh bằng tên chi nhánh.");
-                        System.out.println("5. Xóa chi nhánh bằng id.");
-                        System.out.println("6. Thêm chi nhánh vào danh sách.");
-                        System.out.println("7. Sửa chi nhánh trong danh sách.");
+                        System.out.println("2. Tạo mới danh sách chi nhánh từ file.");
+                        System.out.println("3. Xuất danh sách chi nhánh.");
+                        System.out.println("4. Tìm chi nhánh bằng id.");
+                        System.out.println("5. Tìm chi nhánh bằng tên chi nhánh.");
+                        System.out.println("6. Xóa chi nhánh bằng id.");
+                        System.out.println("7. Thêm chi nhánh vào danh sách.");
+                        System.out.println("8. Sửa chi nhánh trong danh sách.");
                         System.out.println("0. Thoát quản lý chi nhánh.");
                         System.out.print("Mời bạn chọn chức năng: ");
                         chonmenucon = Integer.parseInt(sc.nextLine());
@@ -43,31 +45,42 @@ public class Main {
                                 brmanage.input();
                                 break;
                             case 2:
-                                if (brmanage.getAmount() == 0) {
-                                    System.out.println("Chưa tạo danh sách.");
-                                }
-                                else {
-                                    brmanage.show();
+                                System.out.println("=============================================");
+                                try {
+                                    brmanage.inputFile(pathBr);
+                                } catch (IOException e) {
+                                    System.out.println("Không mở được file.");
                                 }
                                 break;
                             case 3:
-                                System.out.print("Mời bạn nhập mã chi nhánh: ");
-                                System.out.println(brmanage.findBranch(sc.nextLine()).toString());
+                                System.out.println("=============================================");
+                                brmanage.show();
                                 break;
                             case 4:
+                                System.out.print("Mời bạn nhập mã chi nhánh: ");
+                                Branch brf = brmanage.findBranch(sc.nextLine());
+                                if (brf != null) {
+                                    System.out.printf("%-10s|%-20s|%-50s|%-12s\n", "MaCN", "TenCN", "Dia Chi", "Ngay Mo Cua");
+                                    System.out.println(brf.toString());
+                                }
+                                else {
+                                    System.out.println("Chi nhánh không tồn tại.");
+                                }
+                                break;
+                            case 5:
                                 System.out.print("Mời bạn nhập tên chi nhánh: ");
                                 brmanage.findBranchByName(sc.nextLine());
                                 break;
-                            case 5:
+                            case 6:
                                 System.out.print("Mời bạn nhập mã chi nhánh: ");
                                 brmanage.remove(sc.nextLine());
                                 break;
-                            case 6:
+                            case 7:
                                 Branch nbr = new Branch();
                                 nbr.input();
                                 brmanage.add(nbr);
                                 break;
-                            case 7:
+                            case 8:
                                 System.out.print("Mời bạn nhập mã chi nhánh: ");
                                 brmanage.edit(sc.nextLine());
                                 break;
@@ -106,19 +119,14 @@ public class Main {
                                 break;
                             case 3:
                                 System.out.println("=============================================");
-                                if (emmanage.getAmount() == 0) {
-                                    System.out.println("Chưa tạo danh sách.");
-                                }
-                                else {
-                                    emmanage.show();
-                                }
+                                emmanage.show();
                                 break;
                             case 4:
                                 System.out.println("=============================================");
                                 System.out.print("Mời bạn nhập mã nhân viên: ");
                                 Employee emf = emmanage.findEmployee(sc.nextLine());
-                                System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
                                 if (emf != null) {
+                                    System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
                                     System.out.println(emf.toString());
                                 }
                                 else {
@@ -199,19 +207,14 @@ public class Main {
                                 break;
                             case 3:
                                 System.out.println("=============================================");
-                                if (cusmanage.getAmount() == 0) {
-                                    System.out.println("Chưa tạo danh sách.");
-                                }
-                                else {
-                                    cusmanage.show();
-                                }
+                                cusmanage.show();
                                 break;
                             case 4:
                                 System.out.println("=============================================");
                                 System.out.print("Mời bạn nhập mã khách hàng: ");
                                 Customer cusf = cusmanage.findCustomer(sc.nextLine());
-                                System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
                                 if (cusf != null) {
+                                    System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
                                     System.out.println(cusf.toString());
                                 }
                                 else {

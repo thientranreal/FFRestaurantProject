@@ -1,4 +1,4 @@
-public class Employee extends Person {
+public abstract class Employee extends Person {
     private String id;
     private int wage;
     private String type;
@@ -137,7 +137,5 @@ public class Employee extends Person {
         setBranchIDStrict(sc.nextLine(), brs);
     }
 
-    public int calSalary() {
-        return 0;
-    }
+    public abstract int calSalary();
 }
