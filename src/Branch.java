@@ -83,7 +83,7 @@ public class Branch {
         setName(sc.nextLine());
         System.out.print("Hãy nhập địa chỉ chi nhánh: ");
         setAddress(sc.nextLine());
-        System.out.print("Hãy nhập ngày khai trương: ");
+        System.out.print("Hãy nhập ngày khai trương (dd/mm/yyyy): ");
         setOpenningdate(sc.nextLine());
     }
     private boolean checkDate(String date) {

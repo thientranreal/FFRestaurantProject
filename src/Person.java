@@ -112,7 +112,7 @@ public class Person {
         setName(sc.nextLine());
         System.out.print("Hãy nhập năm sinh: ");
         setBirthyear(Integer.parseInt(sc.nextLine()));
-        System.out.print("Hãy nhập giới tính: ");
+        System.out.print("Hãy nhập giới tính (male, female): ");
         setGender(sc.nextLine());
         System.out.print("Hãy nhập địa chỉ: ");
         setAddress(sc.nextLine());

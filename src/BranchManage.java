@@ -63,14 +63,39 @@ public class BranchManage implements ReadWriteFile{
                 branchArray[i].setOpenningdate(data[3]);
                 ++i;
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Không mở được file.");
+        } catch (IOException e) {
+            System.out.println("Không đọc được file.");
         }
     }
 
     @Override
     public void writeFile(String filename) {
+        if (branchArray == null) {
+            System.out.println("Chưa tạo danh sách chi nhánh.");
+            return;
+        }
+        String dsheader = String.format("%-10s|%-20s|%-50s|%-12s\n", "MaCN", "TenCN", "Dia Chi", "Ngay Mo Cua");
 
+        try {
+            File file = new File(filename);
+            OutputStream outputStream = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            // ghi file
+            // ghi danh sach khach hang ra file
+            outputStreamWriter.write(dsheader);
+            for (Branch br : branchArray) {
+                outputStreamWriter.write(br.toString() + "\n");
+            }
+            // end ghi file
+            outputStreamWriter.flush();
+            System.out.println("Đã ghi được file chi nhánh.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Không mở được file.");
+        } catch (IOException e) {
+            System.out.println("Không ghi được file.");
+        }
     }
 
     public void show() {

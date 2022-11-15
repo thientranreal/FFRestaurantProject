@@ -52,16 +52,15 @@ public class EmployeeManage implements ReadWriteFile{
 
     @Override
     public void readFile(String filename) {
-        try {
-            String[] data;
-            File file_url = new File(filename);
-            String line = "";
-            int i = 0;
+        String[] data;
+        String line = "";
+        int i = 0;
 
+        try {
+            File file_url = new File(filename);
             InputStream inputStream = new FileInputStream(file_url);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
-
             // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
             amount = Integer.parseInt(reader.readLine());
             employeeArray = new Employee[amount];
@@ -92,15 +91,55 @@ public class EmployeeManage implements ReadWriteFile{
                 employeeArray[i].setWorkingdays(Integer.parseInt(data[12]));
                 ++i;
             }
-        }
-        catch (IOException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Không mở được file.");
+        } catch (IOException e) {
+            System.out.println("Không đọc được file.");
         }
     }
 
     @Override
     public void writeFile(String filename) {
+        if (employeeArray == null) {
+            System.out.println("Chưa tạo danh sách nhân viên.");
+            return;
+        }
+        String dsheader = String.format("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
 
+        try {
+            File file = new File(filename);
+            OutputStream outputStream = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            // ghi file
+            // ghi danh sach waiter ra file
+            outputStreamWriter.write("Waiter Employees:\n" + dsheader);
+            for (Employee em : employeeArray) {
+                if (em.getClass().equals(Waiter.class)) {
+                    outputStreamWriter.write(em.toString() + "\n");
+                }
+            }
+            // ghi danh sach guard ra file
+            outputStreamWriter.write("Guard Employees:\n" + dsheader);
+            for (Employee em : employeeArray) {
+                if (em.getClass().equals(Guard.class)) {
+                    outputStreamWriter.write(em.toString() + "\n");
+                }
+            }
+            // ghi danh sach Cleaning Staff ra file
+            outputStreamWriter.write("Cleaning Staffs:\n" + dsheader);
+            for (Employee em : employeeArray) {
+                if (em.getClass().equals(CleaningStaff.class)) {
+                    outputStreamWriter.write(em.toString() + "\n");
+                }
+            }
+            // end ghi file
+            outputStreamWriter.flush();
+        } catch (FileNotFoundException e) {
+            System.out.println("Không mở được file.");
+        } catch (IOException e) {
+            System.out.println("Không ghi được file.");
+        }
+        System.out.println("Đã ghi được file nhân viên.");
     }
 
     public void show() {

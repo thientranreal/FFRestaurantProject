@@ -39,16 +39,15 @@ public class CustomerManage implements ReadWriteFile{
 
     @Override
     public void readFile(String filename) {
-        try {
-            String[] data;
-            File file_url = new File(filename);
-            String line = "";
-            int i = 0;
+        String[] data;
+        String line = "";
+        int i = 0;
 
+        try {
+            File file_url = new File(filename);
             InputStream inputStream = new FileInputStream(file_url);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
-
             // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
             amount = Integer.parseInt(reader.readLine());
             customerArray = new Customer[amount];
@@ -67,14 +66,39 @@ public class CustomerManage implements ReadWriteFile{
                 customerArray[i].setEmail(data[7]);
                 ++i;
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Không mở được file.");
+        } catch (IOException e) {
+            System.out.println("Không đọc được file.");
         }
     }
 
     @Override
     public void writeFile(String filename) {
+        if (customerArray == null) {
+            System.out.println("Chưa tạo danh sách khách hàng.");
+            return;
+        }
+        String dsheader = String.format("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
 
+        try {
+            File file = new File(filename);
+            OutputStream outputStream = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            // ghi file
+            // ghi danh sach khach hang ra file
+            outputStreamWriter.write(dsheader);
+            for (Customer cus : customerArray) {
+                outputStreamWriter.write(cus.toString() + "\n");
+            }
+            // end ghi file
+            outputStreamWriter.flush();
+            System.out.println("Đã ghi được file khách hàng.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Không mở được file.");
+        } catch (IOException e) {
+            System.out.println("Không ghi được file.");
+        }
     }
 
     public void show() {

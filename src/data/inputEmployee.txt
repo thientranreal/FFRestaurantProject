@@ -1,0 +1,6 @@
+5
+Waiter|Tran Trung Thien|2003|male|28/15 Phan Tay Ho, P.7, Q.PN|0374685570|thien@gmail.com|NV001|200000|full-time|counter|CN01|25
+Guard|Nguyen Nhat Anh|1970|male|13/7 CMT8, P.7, Q.3|0974635170|kfc@gmail.com|NV002|150000|full-time|parking lot|CN01|20
+Cleaning Staff|Nguyen Thi Tuyen|1975|female|13/7 Nguyen Van Dau, P.3, Q.BT|0974182500|tuyenthi@gmail.com|NV003|100000|full-time|toilet|CN02|30
+Waiter|Tran Anh Tai|2004|male|2/5 Hoa Cau, P.7, Q.PN|0372615471|taitran@gmail.com|NV004|100000|part-time|kitchen|CN01|1
+Guard|Phan Anh Vu|1960|male|3/2 An Duong Vuong, P.4, Q.5|0373628210|vuphan@gmail.com|NV005|100000|part-time|parking lot|CN01|15

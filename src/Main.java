@@ -1,5 +1,4 @@
-import javax.imageio.IIOException;
-import java.io.IOException;
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -7,9 +6,15 @@ public class Main {
         Menu();
     }
     private static void Menu() {
-        final String pathEm = "/Users/Admin/Documents/GitHub/FFRestaurantProject/src/data/inputE.txt";
-        final String pathCus = "/Users/Admin/Documents/GitHub/FFRestaurantProject/src/data/inputC.txt";
-        final String pathBr = "/Users/Admin/Documents/GitHub/FFRestaurantProject/src/data/inputB.txt";
+        // lay thu muc hien tai
+        File currentDirectory = new File("");
+        final String pathEm = currentDirectory.getAbsolutePath() + "/src/data/inputEmployee.txt";
+        final String pathEmResult = currentDirectory.getAbsolutePath() + "/src/data/outputEmployee.txt";
+        final String pathCus = currentDirectory.getAbsolutePath() + "/src/data/inputCustomer.txt";
+        final String pathCusResult = currentDirectory.getAbsolutePath() + "/src/data/outputCustomer.txt";
+        final String pathBr = currentDirectory.getAbsolutePath() + "/src/data/inputBranch.txt";
+        final String pathBrResult = currentDirectory.getAbsolutePath() + "/src/data/outputBranch.txt";
+        // tao danh sach
         EmployeeManage emmanage = new EmployeeManage();
         BranchManage brmanage = new BranchManage();
         CustomerManage cusmanage = new CustomerManage();
@@ -35,6 +40,7 @@ public class Main {
                         System.out.println("6. Xóa chi nhánh bằng id.");
                         System.out.println("7. Thêm chi nhánh vào danh sách.");
                         System.out.println("8. Sửa chi nhánh trong danh sách.");
+                        System.out.println("9. Ghi danh sách chi nhánh ra file.");
                         System.out.println("0. Thoát quản lý chi nhánh.");
                         System.out.print("Mời bạn chọn chức năng: ");
                         chonmenucon = Integer.parseInt(sc.nextLine());
@@ -80,6 +86,10 @@ public class Main {
                                 System.out.print("Mời bạn nhập mã chi nhánh: ");
                                 brmanage.edit(sc.nextLine());
                                 break;
+                            case 9:
+                                System.out.println("=============================================");
+                                brmanage.writeFile(pathBrResult);
+                                break;
                         }
                     } while (chonmenucon != 0);
                     break;
@@ -95,6 +105,7 @@ public class Main {
                         System.out.println("7. Thêm nhân viên vào danh sách.");
                         System.out.println("8. Sửa nhân viên trong danh sách.");
                         System.out.println("9. Sắp xếp lương nhân viên tăng dần.");
+                        System.out.println("10. Ghi danh sách nhân viên ra file.");
                         System.out.println("0. Thoát quản lý nhân viên.");
                         System.out.print("Mời bạn chọn chức năng: ");
                         chonmenucon = Integer.parseInt(sc.nextLine());
@@ -154,7 +165,10 @@ public class Main {
                                     em = new CleaningStaff();
                                 }
                                 em.input(brmanage.getBranchArray());
-                                emmanage.add(em);
+                                // kiem tra xem nhan vien co chi nhanh khong
+                                if (!em.getBranchID().isBlank()) {
+                                    emmanage.add(em);
+                                }
                                 break;
                             case 8:
                                 System.out.println("=============================================");
@@ -164,6 +178,10 @@ public class Main {
                             case 9:
                                 System.out.println("=============================================");
                                 emmanage.sortSalary();
+                                break;
+                            case 10:
+                                System.out.println("=============================================");
+                                emmanage.writeFile(pathEmResult);
                                 break;
                         }
                     } while (chonmenucon != 0);
@@ -179,6 +197,7 @@ public class Main {
                         System.out.println("6. Xóa khách hàng bằng id.");
                         System.out.println("7. Thêm khách hàng vào danh sách.");
                         System.out.println("8. Sửa khách hàng trong danh sách.");
+                        System.out.println("9. Ghi danh sách khách hàng ra file.");
                         System.out.println("0. Thoát quản lý khách hàng.");
                         System.out.print("Mời bạn chọn chức năng: ");
                         chonmenucon = Integer.parseInt(sc.nextLine());
@@ -229,6 +248,10 @@ public class Main {
                                 System.out.println("=============================================");
                                 System.out.print("Mời bạn nhập mã khách hàng: ");
                                 cusmanage.edit(sc.nextLine());
+                                break;
+                            case 9:
+                                System.out.println("=============================================");
+                                cusmanage.writeFile(pathCusResult);
                                 break;
                         }
                     } while (chonmenucon != 0);
