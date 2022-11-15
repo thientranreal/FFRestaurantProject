@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class EmployeeManage {
+public class EmployeeManage implements ReadWriteFile{
     private int amount;
     private Employee[] employeeArray;
     private static Scanner sc = new Scanner(System.in);
@@ -49,47 +49,60 @@ public class EmployeeManage {
             employeeArray[i].input(brs);
         }
     }
-    public void inputFile(String file) throws IOException {
-        String[] data;
-        File file_url = new File(file);
-        String line = "";
-        int i = 0;
 
-        InputStream inputStream = new FileInputStream(file_url);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
+    @Override
+    public void readFile(String filename) {
+        try {
+            String[] data;
+            File file_url = new File(filename);
+            String line = "";
+            int i = 0;
 
-        // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
-        amount = Integer.parseInt(reader.readLine());
-        employeeArray = new Employee[amount];
+            InputStream inputStream = new FileInputStream(file_url);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        // Đọc dữ liệu từ FILE
-        while((line = reader.readLine()) != null){
-            data = line.split("[|]");
-            if (data[0].equalsIgnoreCase("waiter")) {
-                employeeArray[i] = new Waiter();
+            // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+            amount = Integer.parseInt(reader.readLine());
+            employeeArray = new Employee[amount];
+
+            // Đọc dữ liệu từ FILE
+            while((line = reader.readLine()) != null) {
+                data = line.split("[|]");
+                if (data[0].equalsIgnoreCase("waiter")) {
+                    employeeArray[i] = new Waiter();
+                }
+                else if (data[0].equalsIgnoreCase("cleaning staff")) {
+                    employeeArray[i] = new CleaningStaff();
+                }
+                else {
+                    employeeArray[i] = new Guard();
+                }
+                employeeArray[i].setName(data[1]);
+                employeeArray[i].setBirthyear(Integer.parseInt(data[2]));
+                employeeArray[i].setGender(data[3]);
+                employeeArray[i].setAddress(data[4]);
+                employeeArray[i].setPhonenumber(data[5]);
+                employeeArray[i].setEmail(data[6]);
+                employeeArray[i].setId(data[7]);
+                employeeArray[i].setWage(Integer.parseInt(data[8]));
+                employeeArray[i].setType(data[9]);
+                employeeArray[i].setWorkingarea(data[10]);
+                employeeArray[i].setBranchID(data[11]);
+                employeeArray[i].setWorkingdays(Integer.parseInt(data[12]));
+                ++i;
             }
-            else if (data[0].equalsIgnoreCase("cleaning staff")) {
-                employeeArray[i] = new CleaningStaff();
-            }
-            else {
-                employeeArray[i] = new Guard();
-            }
-            employeeArray[i].setName(data[1]);
-            employeeArray[i].setBirthyear(Integer.parseInt(data[2]));
-            employeeArray[i].setGender(data[3]);
-            employeeArray[i].setAddress(data[4]);
-            employeeArray[i].setPhonenumber(data[5]);
-            employeeArray[i].setEmail(data[6]);
-            employeeArray[i].setId(data[7]);
-            employeeArray[i].setWage(Integer.parseInt(data[8]));
-            employeeArray[i].setType(data[9]);
-            employeeArray[i].setWorkingarea(data[10]);
-            employeeArray[i].setBranchID(data[11]);
-            employeeArray[i].setWorkingdays(Integer.parseInt(data[12]));
-            ++i;
+        }
+        catch (IOException e) {
+            System.out.println("Không mở được file.");
         }
     }
+
+    @Override
+    public void writeFile(String filename) {
+
+    }
+
     public void show() {
         if (employeeArray == null) {
             System.out.println("Chưa tạo danh sách nhân viên.");

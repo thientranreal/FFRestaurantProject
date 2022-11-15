@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class BranchManage {
+public class BranchManage implements ReadWriteFile{
     private int amount;
     private Branch[] branchArray;
     private static Scanner sc = new Scanner(System.in);
@@ -36,31 +36,43 @@ public class BranchManage {
             branchArray[i].input();
         }
     }
-    public void inputFile(String file) throws IOException {
-        String[] data;
-        File file_url = new File(file);
-        String line = "";
-        int i = 0;
 
-        InputStream inputStream = new FileInputStream(file_url);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
+    @Override
+    public void readFile(String filename) {
+        try {
+            String[] data;
+            File file_url = new File(filename);
+            String line = "";
+            int i = 0;
 
-        // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
-        amount = Integer.parseInt(reader.readLine());
-        branchArray = new Branch[amount];
+            InputStream inputStream = new FileInputStream(file_url);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        // Đọc dữ liệu từ FILE
-        while((line = reader.readLine()) != null){
-            data = line.split("[|]");
-            branchArray[i] = new Branch();
-            branchArray[i].setId(data[0]);
-            branchArray[i].setName(data[1]);
-            branchArray[i].setAddress(data[2]);
-            branchArray[i].setOpenningdate(data[3]);
-            ++i;
+            // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+            amount = Integer.parseInt(reader.readLine());
+            branchArray = new Branch[amount];
+
+            // Đọc dữ liệu từ FILE
+            while((line = reader.readLine()) != null) {
+                data = line.split("[|]");
+                branchArray[i] = new Branch();
+                branchArray[i].setId(data[0]);
+                branchArray[i].setName(data[1]);
+                branchArray[i].setAddress(data[2]);
+                branchArray[i].setOpenningdate(data[3]);
+                ++i;
+            }
+        } catch (IOException e) {
+            System.out.println("Không mở được file.");
         }
     }
+
+    @Override
+    public void writeFile(String filename) {
+
+    }
+
     public void show() {
         if (branchArray == null) {
             System.out.println("Chưa tạo danh sách chi nhánh.");

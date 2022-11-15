@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class CustomerManage {
+public class CustomerManage implements ReadWriteFile{
     private int amount;
     private Customer[] customerArray;
     private static Scanner sc = new Scanner(System.in);
@@ -36,35 +36,47 @@ public class CustomerManage {
             customerArray[i].input();
         }
     }
-    public void inputFile(String file) throws IOException {
-        String[] data;
-        File file_url = new File(file);
-        String line = "";
-        int i = 0;
 
-        InputStream inputStream = new FileInputStream(file_url);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
+    @Override
+    public void readFile(String filename) {
+        try {
+            String[] data;
+            File file_url = new File(filename);
+            String line = "";
+            int i = 0;
 
-        // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
-        amount = Integer.parseInt(reader.readLine());
-        customerArray = new Customer[amount];
+            InputStream inputStream = new FileInputStream(file_url);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
 
-        // Đọc dữ liệu từ FILE
-        while((line = reader.readLine()) != null){
-            data = line.split("[|]");
-            customerArray[i] = new Customer();
-            customerArray[i].setId(data[0]);
-            customerArray[i].setCustomer_type(data[1]);
-            customerArray[i].setName(data[2]);
-            customerArray[i].setBirthyear(Integer.parseInt(data[3]));
-            customerArray[i].setGender(data[4]);
-            customerArray[i].setAddress(data[5]);
-            customerArray[i].setPhonenumber(data[6]);
-            customerArray[i].setEmail(data[7]);
-            ++i;
+            // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+            amount = Integer.parseInt(reader.readLine());
+            customerArray = new Customer[amount];
+
+            // Đọc dữ liệu từ FILE
+            while((line = reader.readLine()) != null) {
+                data = line.split("[|]");
+                customerArray[i] = new Customer();
+                customerArray[i].setId(data[0]);
+                customerArray[i].setCustomer_type(data[1]);
+                customerArray[i].setName(data[2]);
+                customerArray[i].setBirthyear(Integer.parseInt(data[3]));
+                customerArray[i].setGender(data[4]);
+                customerArray[i].setAddress(data[5]);
+                customerArray[i].setPhonenumber(data[6]);
+                customerArray[i].setEmail(data[7]);
+                ++i;
+            }
+        } catch (IOException e) {
+            System.out.println("Không mở được file.");
         }
     }
+
+    @Override
+    public void writeFile(String filename) {
+
+    }
+
     public void show() {
         if (customerArray == null) {
             System.out.println("Chưa tạo danh sách khách hàng.");

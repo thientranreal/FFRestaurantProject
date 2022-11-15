@@ -46,11 +46,7 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("=============================================");
-                                try {
-                                    brmanage.inputFile(pathBr);
-                                } catch (IOException e) {
-                                    System.out.println("Không mở được file.");
-                                }
+                                brmanage.readFile(pathBr);
                                 break;
                             case 3:
                                 System.out.println("=============================================");
@@ -111,11 +107,7 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("=============================================");
-                                try {
-                                    emmanage.inputFile(pathEm);
-                                } catch (IOException e) {
-                                    System.out.println("Không mở được file.");
-                                }
+                                emmanage.readFile(pathEm);
                                 break;
                             case 3:
                                 System.out.println("=============================================");
@@ -199,11 +191,7 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("=============================================");
-                                try {
-                                    cusmanage.inputFile(pathCus);
-                                } catch (IOException e) {
-                                    System.out.println("Không mở được file.");
-                                }
+                                cusmanage.readFile(pathCus);
                                 break;
                             case 3:
                                 System.out.println("=============================================");
