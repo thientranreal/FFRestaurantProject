@@ -1,4 +1,10 @@
 public class Waiter extends Employee {
+    private static int soluong = 0;
+
+    public Waiter() {
+        ++soluong;
+    }
+
     @Override
     public int calSalary() {
         int salary = getWage() * getWorkingdays();
@@ -9,5 +15,16 @@ public class Waiter extends Employee {
             return salary;
         }
         return 0;
+    }
+    public static int getSoLuong() {
+        return soluong;
+    }
+    public static void setSoLuong(int sl) {
+        if (sl < 0) {
+            soluong = 0;
+        }
+        else {
+            soluong = sl;
+        }
     }
 }

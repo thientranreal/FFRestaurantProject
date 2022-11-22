@@ -49,9 +49,19 @@ public class BranchManage implements ReadWriteFile{
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
-            // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
-            amount = Integer.parseInt(reader.readLine());
-            branchArray = new Branch[amount];
+            // nếu mảng rỗng thì khởi tạo mảng mới
+            if (branchArray == null) {
+                // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+                amount = Integer.parseInt(reader.readLine());
+                branchArray = new Branch[amount];
+            }
+            else {
+                // i sẽ ở vị trí length array
+                i = amount;
+                // copy mảng mới với số lượng là mảng cũ + số lượng mới
+                amount = amount + Integer.parseInt(reader.readLine());
+                branchArray = Arrays.copyOf(branchArray, amount);
+            }
 
             // Đọc dữ liệu từ FILE
             while((line = reader.readLine()) != null) {
@@ -107,6 +117,10 @@ public class BranchManage implements ReadWriteFile{
         for (Branch br : branchArray) {
             System.out.println(br.toString());
         }
+        System.out.println("=======================================================================");
+        // xuất số lượng chi nhánh
+        System.out.println("Số lượng chi nhánh: " + amount);
+        System.out.println("=======================================================================");
     }
     public Branch findBranch(String id) {
         for (Branch br : branchArray) {
@@ -121,7 +135,7 @@ public class BranchManage implements ReadWriteFile{
         }
         System.out.printf("%-10s|%-20s|%-50s|%-12s\n", "MaCN", "TenCN", "Dia Chi", "Ngay Mo Cua");
         for (Branch br : branchArray) {
-            if (br.getName().compareToIgnoreCase(name) == 0) {
+            if (br.getName().toLowerCase().contains(name.toLowerCase())) {
                 System.out.println(br.toString());
             }
         }
@@ -183,7 +197,12 @@ public class BranchManage implements ReadWriteFile{
             System.out.printf("3. Sửa địa chỉ chi nhánh.\n");
             System.out.printf("4. Sửa ngày khai trương.\n");
             System.out.printf("Hãy chọn thông tin muốn sửa.\n");
-            chon = Integer.parseInt(sc.nextLine());
+            System.out.printf("Hãy nhập phím bất kỳ để thoát.\n");
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                return;
+            }
             if (chon <= 0 || chon > 4) { break; }
             switch (chon) {
                 case 1:

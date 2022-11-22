@@ -62,7 +62,11 @@ public class Person {
     public void setBirthyear(int birthyear) {
         while (2022 - birthyear < 18 || 2022 - birthyear > 65) {
             System.out.print("Tuổi không phù hợp. Vui lòng nhập lại: ");
-            birthyear = Integer.parseInt(sc.nextLine());
+            try {
+                birthyear = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                birthyear = 0;
+            }
         }
         this.birthyear = birthyear;
     }
@@ -110,15 +114,37 @@ public class Person {
     public void input() {
         System.out.print("Hãy nhập họ và tên: ");
         setName(sc.nextLine());
-        System.out.print("Hãy nhập năm sinh: ");
-        setBirthyear(Integer.parseInt(sc.nextLine()));
+
+        String test;
+        do {
+            System.out.print("Hãy nhập năm sinh: ");
+            // kiểm tra input năm sinh
+            test = sc.nextLine();
+            if (isDigit(test)) {
+                setBirthyear(Integer.parseInt(test));
+                break;
+            }
+            System.out.println("Input chỉ nhận số.");
+        } while (true);
+
         System.out.print("Hãy nhập giới tính (male, female): ");
         setGender(sc.nextLine());
+
         System.out.print("Hãy nhập địa chỉ: ");
         setAddress(sc.nextLine());
+
         System.out.print("Hãy nhập số điện thoại: ");
         setPhonenumber(sc.nextLine());
+
         System.out.print("Hãy nhập email: ");
         setEmail(sc.nextLine());
+    }
+    public boolean isDigit(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

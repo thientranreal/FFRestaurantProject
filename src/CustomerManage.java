@@ -48,9 +48,20 @@ public class CustomerManage implements ReadWriteFile{
             InputStream inputStream = new FileInputStream(file_url);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
-            // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
-            amount = Integer.parseInt(reader.readLine());
-            customerArray = new Customer[amount];
+
+            // nếu mảng rỗng thì khởi tạo mảng mới
+            if (customerArray == null) {
+                // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+                amount = Integer.parseInt(reader.readLine());
+                customerArray = new Customer[amount];
+            }
+            else {
+                // i sẽ ở vị trí length array
+                i = amount;
+                // copy mảng mới với số lượng là mảng cũ + số lượng mới
+                amount = amount + Integer.parseInt(reader.readLine());
+                customerArray = Arrays.copyOf(customerArray, amount);
+            }
 
             // Đọc dữ liệu từ FILE
             while((line = reader.readLine()) != null) {
@@ -110,6 +121,10 @@ public class CustomerManage implements ReadWriteFile{
         for (Customer cus : customerArray) {
             System.out.println(cus.toString());
         }
+        System.out.println("=======================================================================");
+        // xuất số lượng khách hàng
+        System.out.println("Số lượng khách hàng: " + amount);
+        System.out.println("=======================================================================");
     }
     public Customer findCustomer(String id) {
         for (Customer cus : customerArray) {
@@ -124,7 +139,7 @@ public class CustomerManage implements ReadWriteFile{
         }
         System.out.printf("%-10s|%-10s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s\n", "MaKH", "LoaiKH", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email");
         for (Customer cus : customerArray) {
-            if (cus.getName().compareToIgnoreCase(name) == 0) {
+            if (cus.getName().toLowerCase().contains(name.toLowerCase())) {
                 System.out.println(cus.toString());
             }
         }
@@ -191,7 +206,12 @@ public class CustomerManage implements ReadWriteFile{
             System.out.printf("7. Sửa email.\n");
             System.out.printf("8. Sửa loại KH.\n");
             System.out.printf("Hãy chọn thông tin muốn sửa.\n");
-            chon = Integer.parseInt(sc.nextLine());
+            System.out.printf("Hãy nhập phím bất kỳ để thoát.\n");
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                return;
+            }
             if (chon <= 0 || chon > 8) { break; }
             switch (chon) {
                 case 1:
@@ -204,7 +224,11 @@ public class CustomerManage implements ReadWriteFile{
                     break;
                 case 3:
                     System.out.print("Hãy nhập năm sinh: ");
-                    customerArray[i].setBirthyear(Integer.parseInt(sc.nextLine()));
+                    try {
+                        customerArray[i].setBirthyear(Integer.parseInt(sc.nextLine()));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Lỗi không sửa được năm sinh.");
+                    }
                     break;
                 case 4:
                     System.out.print("Hãy nhập giới tính: ");

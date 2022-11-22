@@ -14,6 +14,7 @@ public class Main {
         final String pathCusResult = currentDirectory.getAbsolutePath() + "/src/data/outputCustomer.txt";
         final String pathBr = currentDirectory.getAbsolutePath() + "/src/data/inputBranch.txt";
         final String pathBrResult = currentDirectory.getAbsolutePath() + "/src/data/outputBranch.txt";
+
         // tao danh sach
         EmployeeManage emmanage = new EmployeeManage();
         BranchManage brmanage = new BranchManage();
@@ -27,7 +28,12 @@ public class Main {
             System.out.println("3. Quản lý khách hàng.");
             System.out.println("0. Thoát chương trình");
             System.out.print("Mời bạn chọn chức năng: ");
-            chon = Integer.parseInt(sc.nextLine());
+            chon = -1;
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Chức năng chỉ nhận số.");
+            }
             switch (chon) {
                 case 1:
                     do {
@@ -43,7 +49,12 @@ public class Main {
                         System.out.println("9. Ghi danh sách chi nhánh ra file.");
                         System.out.println("0. Thoát quản lý chi nhánh.");
                         System.out.print("Mời bạn chọn chức năng: ");
-                        chonmenucon = Integer.parseInt(sc.nextLine());
+                        chonmenucon = -1;
+                        try {
+                            chonmenucon = Integer.parseInt(sc.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Chức năng chỉ nhận số.");
+                        }
                         switch (chonmenucon) {
                             case 1:
                                 System.out.print("Mời bạn nhập số lượng cho danh sách: ");
@@ -108,7 +119,12 @@ public class Main {
                         System.out.println("10. Ghi danh sách nhân viên ra file.");
                         System.out.println("0. Thoát quản lý nhân viên.");
                         System.out.print("Mời bạn chọn chức năng: ");
-                        chonmenucon = Integer.parseInt(sc.nextLine());
+                        chonmenucon = -1;
+                        try {
+                            chonmenucon = Integer.parseInt(sc.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Chức năng chỉ nhận số.");
+                        }
                         switch (chonmenucon) {
                             case 1:
                                 System.out.println("=============================================");
@@ -200,7 +216,12 @@ public class Main {
                         System.out.println("9. Ghi danh sách khách hàng ra file.");
                         System.out.println("0. Thoát quản lý khách hàng.");
                         System.out.print("Mời bạn chọn chức năng: ");
-                        chonmenucon = Integer.parseInt(sc.nextLine());
+                        chonmenucon = -1;
+                        try {
+                            chonmenucon = Integer.parseInt(sc.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Chức năng chỉ nhận số.");
+                        }
                         switch (chonmenucon) {
                             case 1:
                                 System.out.println("=============================================");

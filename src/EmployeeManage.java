@@ -61,9 +61,20 @@ public class EmployeeManage implements ReadWriteFile{
             InputStream inputStream = new FileInputStream(file_url);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(inputStreamReader);
-            // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
-            amount = Integer.parseInt(reader.readLine());
-            employeeArray = new Employee[amount];
+
+            // nếu mảng rỗng thì khởi tạo mảng mới
+            if (employeeArray == null) {
+                // Đọc số lượng của mảng từ file gán vào amount, khởi tạo mảng employee mới
+                amount = Integer.parseInt(reader.readLine());
+                employeeArray = new Employee[amount];
+            }
+            else {
+                // i sẽ ở vị trí length array
+                i = amount;
+                // copy mảng mới với số lượng là mảng cũ + số lượng mới
+                amount = amount + Integer.parseInt(reader.readLine());
+                employeeArray = Arrays.copyOf(employeeArray, amount);
+            }
 
             // Đọc dữ liệu từ FILE
             while((line = reader.readLine()) != null) {
@@ -174,6 +185,12 @@ public class EmployeeManage implements ReadWriteFile{
             }
         }
         System.out.println("=======================================================================");
+        // xuất số lượng nhân viên
+        System.out.println("Số lượng nhân viên: " + amount);
+        System.out.println("Số lượng waiter: " + Waiter.getSoLuong());
+        System.out.println("Số lượng guard: " + Guard.getSoLuong());
+        System.out.println("Số lượng cleaning staff: " + CleaningStaff.getSoLuong());
+        System.out.println("=======================================================================");
     }
     public void sortSalary() {
         Arrays.sort(employeeArray, (Employee a, Employee b) -> {
@@ -193,7 +210,7 @@ public class EmployeeManage implements ReadWriteFile{
         }
         System.out.printf("%-10s|%-10s|%-10s|%-13s|%-25s|%-6s|%-8s|%-50s|%-15s|%-20s|%-10s|%-11s|%-15s\n", "MaNV", "LuongNgay", "LoaiNV", "KVLamViec", "Ho Ten", "NS", "GT", "Dia Chi", "SDT", "Email", "Ma CN", "So Ngay LV", "Luong");
         for (Employee em : employeeArray) {
-            if (em.getName().compareToIgnoreCase(name) == 0) {
+            if (em.getName().toLowerCase().contains(name.toLowerCase())) {
                 System.out.println(em.toString());
             }
         }
@@ -215,6 +232,20 @@ public class EmployeeManage implements ReadWriteFile{
         for (int i = 0; i < employeeArray.length; i++) {
             if (employeeArray[i].getId().compareToIgnoreCase(id) != 0) {
                 copy[j++] = employeeArray[i];
+            }
+            else {
+                // giảm số lượng waiter xuống 1
+                if (employeeArray[i] instanceof Waiter) {
+                    Waiter.setSoLuong(Waiter.getSoLuong() - 1);
+                }
+                // giảm số lượng cleaning staff xuống 1
+                else if (employeeArray[i] instanceof CleaningStaff) {
+                    CleaningStaff.setSoLuong(CleaningStaff.getSoLuong() - 1);
+                }
+                // giảm số lượng guard xuống 1
+                else if (employeeArray[i] instanceof Guard) {
+                    Guard.setSoLuong(Guard.getSoLuong() - 1);
+                }
             }
         }
         employeeArray = copy;
@@ -263,7 +294,12 @@ public class EmployeeManage implements ReadWriteFile{
             System.out.printf("11. Sửa số ngày làm việc.\n");
             System.out.printf("12. Sửa mã chi nhánh làm việc.\n");
             System.out.printf("Hãy chọn thông tin muốn sửa.\n");
-            chon = Integer.parseInt(sc.nextLine());
+            System.out.printf("Hãy nhập phím bất kỳ để thoát.\n");
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                return;
+            }
             if (chon <= 0 || chon > 12) { break; }
             switch (chon) {
                 case 1:
@@ -276,7 +312,11 @@ public class EmployeeManage implements ReadWriteFile{
                     break;
                 case 3:
                     System.out.print("Hãy nhập năm sinh: ");
-                    employeeArray[i].setBirthyear(Integer.parseInt(sc.nextLine()));
+                    try {
+                        employeeArray[i].setBirthyear(Integer.parseInt(sc.nextLine()));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Lỗi không sửa được năm sinh.");
+                    }
                     break;
                 case 4:
                     System.out.print("Hãy nhập giới tính: ");
@@ -296,7 +336,11 @@ public class EmployeeManage implements ReadWriteFile{
                     break;
                 case 8:
                     System.out.print("Hãy nhập lương một ngày: ");
-                    employeeArray[i].setWage(Integer.parseInt(sc.nextLine()));
+                    try {
+                        employeeArray[i].setWage(Integer.parseInt(sc.nextLine()));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Lỗi không sửa được lương một ngày.");
+                    }
                     break;
                 case 9:
                     System.out.print("Hãy nhập loại nhân viên (full-time, part-time): ");
@@ -308,7 +352,11 @@ public class EmployeeManage implements ReadWriteFile{
                     break;
                 case 11:
                     System.out.print("Hãy nhập số ngày làm việc: ");
-                    employeeArray[i].setWorkingdays(Integer.parseInt(sc.nextLine()));
+                    try {
+                        employeeArray[i].setWorkingdays(Integer.parseInt(sc.nextLine()));
+                    } catch (NumberFormatException e) {
+                        System.out.println("Lỗi không sửa được số ngày làm việc.");
+                    }
                     break;
                 case 12:
                     System.out.print("Hãy nhập mã chi nhánh làm việc: ");

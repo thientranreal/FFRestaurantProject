@@ -60,7 +60,11 @@ public abstract class Employee extends Person {
     public void setWage(int wage) {
         while (wage <= 0) {
             System.out.print("Lương không hợp lệ. Vui lòng nhập lại: ");
-            wage = Integer.parseInt(sc.nextLine());
+            try {
+                wage = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                wage = 0;
+            }
         }
         this.wage = wage;
     }
@@ -111,7 +115,11 @@ public abstract class Employee extends Person {
     public void setWorkingdays(int workingdays) {
         while (workingdays < 0 || workingdays > 31) {
             System.out.print("Số ngày làm việc không hợp lệ. Vui lòng nhập lại: ");
-            workingdays = Integer.parseInt(sc.nextLine());
+            try {
+                workingdays = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                workingdays = -1;
+            }
         }
         this.workingdays = workingdays;
     }
@@ -123,16 +131,37 @@ public abstract class Employee extends Person {
 
     public void input(Branch[] brs) {
         super.input();
+
         System.out.print("Hãy nhập mã nhân viên: ");
         setId(sc.nextLine());
-        System.out.print("Hãy nhập lương một ngày: ");
-        setWage(Integer.parseInt(sc.nextLine()));
+
+        String test;
+        do {
+            System.out.print("Hãy nhập lương một ngày: ");
+            test = sc.nextLine();
+            if (isDigit(test)) {
+                setWage(Integer.parseInt(test));
+                break;
+            }
+            System.out.println("Input chỉ nhận số.");
+        } while (true);
+
         System.out.print("Hãy nhập loại nhân viên (full-time, part-time): ");
         setType(sc.nextLine());
+
         System.out.print("Hãy nhập khu vực làm việc (kitchen, counter, toilet, parking lot): ");
         setWorkingarea(sc.nextLine());
-        System.out.print("Hãy nhập số ngày làm việc: ");
-        setWorkingdays(Integer.parseInt(sc.nextLine()));
+
+        do {
+            System.out.print("Hãy nhập số ngày làm việc: ");
+            test = sc.nextLine();
+            if (isDigit(test)) {
+                setWorkingdays(Integer.parseInt(test));
+                break;
+            }
+            System.out.println("Input chỉ nhận số.");
+        } while (true);
+
         System.out.print("Hãy nhập mã chi nhánh làm việc: ");
         setBranchIDStrict(sc.nextLine(), brs);
     }
